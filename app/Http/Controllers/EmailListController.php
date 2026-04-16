@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEmailListRequest;
 use App\Models\EmailList;
 use Illuminate\Http\Request;
 
@@ -27,9 +28,12 @@ class EmailListController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreEmailListRequest $request)
     {
-        //
+        $data = $request->validated();
+        $list = new EmailList($data);
+        $list->save();
+        return redirect()->route('email-list.index');
     }
 
     /**
