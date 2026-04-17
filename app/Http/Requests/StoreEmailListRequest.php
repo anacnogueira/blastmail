@@ -24,7 +24,7 @@ class StoreEmailListRequest extends FormRequest
     {
         return [
             'title' =>['required', 'string', 'max:255'],
-            //'file' => ['required', 'file'],
+            'file' => ['required', 'file','mimes:csv,txt'],
         ];
     }
 }

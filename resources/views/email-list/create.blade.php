@@ -16,7 +16,8 @@
 
             <div>
                 <x-input-label for="file" :value="__('File List')" />
-                <x-text-input id="file" class="block mt-1 w-full" name="file" :value="old('file')" type="file" />
+                <x-text-input id="file" accept=".csv" class="block mt-1 w-full" name="file" :value="old('file')"
+                    type="file" />
                 <x-input-error :messages="$errors->get('file')" class="mt-2" />
             </div>
 
