@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Subscriber;
+use App\Models\EmailList;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Subscriber>
+ * @extends Factory<EmailList>
  */
-class SubscriberFactory extends Factory
+class EmailListFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +18,7 @@ class SubscriberFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name,
-            'email' => fake()->email
+            'title' => fake()->title,
         ];
     }
 }
