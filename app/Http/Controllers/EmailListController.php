@@ -27,7 +27,7 @@ class EmailListController extends Controller
         ->appends('search', $search);
 
 
-        return view('email-list.index',compact('emailLists', 'search'));
+        return view('email-lists.index',compact('emailLists', 'search'));
     }
 
     /**
@@ -35,7 +35,7 @@ class EmailListController extends Controller
      */
     public function create()
     {
-        return view('email-list.create');
+        return view('email-liss.create');
     }
 
     /**
