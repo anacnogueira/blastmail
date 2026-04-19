@@ -20,6 +20,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/email-lists/{emailList}/subscribers',[SubscriberController::class,'index'])->name('subscribers.index');
     Route::get('/email-lists/{emailList}/subscribers/create',[SubscriberController::class,'create'])->name('subscribers.create');
+    Route::post('/email-lists/{emailList}/subscribers/store',[SubscriberController::class,'store'])->name('subscribers.store');
+    Route::delete('/email-lists/{emailList}/subscribers/{subscriber}',[SubscriberController::class,'destroy'])->name('subscribers.destroy');
 
 });
 
