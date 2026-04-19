@@ -10,24 +10,24 @@
 
             <div>
                 <x-input-label for="title" :value="__('Title')" />
-                <x-text-input id="title" class="block mt-1 w-full" name="title" :value="old('title')" autofocus />
+                <x-input.text id="title" class="block mt-1 w-full" name="title" :value="old('title')" autofocus />
                 <x-input-error :messages="$errors->get('title')" class="mt-2" />
             </div>
 
             <div>
                 <x-input-label for="file" :value="__('File List')" />
-                <x-text-input id="file" accept=".csv" class="block mt-1 w-full" name="file" :value="old('file')"
+                <x-input.text id="file" accept=".csv" class="block mt-1 w-full" name="file" :value="old('file')"
                     type="file" />
                 <x-input-error :messages="$errors->get('file')" class="mt-2" />
             </div>
 
             <div class="flex items-center space-x-4">
-                <x-secondary-button type="reset">
+                <x-button.secondary type="reset">
                     {{ __('Cancel') }}
-                </x-secondary-button>
+                </x-button.secondary>
                 <x-primary-button type="submit">
                     {{ __('Save') }}
-                </x-primary-button>
+                    </x-button>
             </div>
         </x-form>
     </x-card>
