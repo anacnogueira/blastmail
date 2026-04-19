@@ -25,9 +25,9 @@
                 <x-button.secondary type="reset">
                     {{ __('Cancel') }}
                 </x-button.secondary>
-                <x-primary-button type="submit">
+                <x-button type="submit">
                     {{ __('Save') }}
-                    </x-button>
+                </x-button>
             </div>
         </x-form>
     </x-card>

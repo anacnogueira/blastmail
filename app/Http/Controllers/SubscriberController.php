@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSubscriberRequest;
 use App\Models\EmailList;
 use App\Models\Subscriber;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 
 class SubscriberController extends Controller
 {
@@ -13,8 +13,6 @@ class SubscriberController extends Controller
     {
         $search = request()->search;
         $showTrash = request()->showTrash;
-
-        //dd($showTrash);
 
         $subscribers = $emailList
             ->subscribers()
@@ -29,6 +27,20 @@ class SubscriberController extends Controller
 
 
         return view('subscribers.index', compact('emailList','subscribers','search','showTrash'));
+    }
+
+    public function create(EmailList $emailList)
+    {
+        return view('subscribers.create', compact('emailList'));
+    }
+
+    public function store(StoreSubscriberRequest $request, EmailList $emailList)
+    {
+        $emailList->subscribers()->create($request->validated());
+        return redirect()
+            ->route('subscribers.index', $emailList)
+            ->with('message', __('Subscriber inserted on the list.'));
+
     }
 
 
