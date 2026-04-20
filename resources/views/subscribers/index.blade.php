@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-layouts.app>
     <x-slot name="header">
         <x-h2>
             {{ __('Email List') }} > {{ $emailList->title }} > {{ __('Subscribers') }}
@@ -42,4 +42,4 @@
         {{ $subscribers->links() }}
 
     </x-card>
-</x-app-layout>
+</x-layouts.app>

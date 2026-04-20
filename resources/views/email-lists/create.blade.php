@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-layouts.app>
     <x-slot name="header">
         <x-h2>
             {{ __('E-mail List') }} > {{ __('Create new list') }}
@@ -32,4 +32,4 @@
         </x-form>
     </x-card>
 
-</x-app-layout>
+</x-layouts.app>
