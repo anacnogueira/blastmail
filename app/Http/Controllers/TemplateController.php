@@ -20,7 +20,8 @@ class TemplateController extends Controller
                 $query->where("name", "like", "%$search%")
                 ->orWhere("id", "=", "$search")
             )
-            ->paginate(5);
+            ->paginate(5)
+            ->appends(compact('search', 'showTrash'));
 
         return view('templates.index', compact('templates','search', 'showTrash'));
     }

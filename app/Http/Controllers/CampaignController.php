@@ -17,8 +17,32 @@ class CampaignController extends Controller
                 ->where("subject", "like", "%$search%")
                 ->orWhere("id", "=", "$search")
             )
-            ->paginate(5);
+            ->paginate(5)
+            ->appends(compact('search', 'showTrash'));
 
         return view('campaigns.index', compact('campaigns','search', 'showTrash'));
     }
+
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Campaign $campaign)
+    {
+        $campaign->delete();
+
+        return redirect()->route('campaigns.index')->with('message', __('Campaign successfully deleted.'));
+    }
+
+     /**
+     * Restore the specified deleted resource from storage.
+     */
+    public function restore(Campaign $campaign)
+    {
+        $campaign->restore();
+
+        return redirect()->route('campaigns.index')->with('message', __('Campaign successfully restored.'));
+    }
+
+
 }
