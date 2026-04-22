@@ -6,7 +6,7 @@
     </x-slot>
 
     <x-card>
-        <x-form :action="route('email-list.store')" method="post" enctype="multipart/form-data">
+        <x-form :action="route('email-lists.store')" method="post" enctype="multipart/form-data">
 
             <div>
                 <x-input-label for="title" :value="__('Title')" />

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\EmailListController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\ProfileController;
@@ -15,16 +16,18 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/email-lists',[EmailListController::class,'index'])->name('email-list.index');
-    Route::get('/email-lists/create',[EmailListController::class,'create'])->name('email-list.create');
-    Route::post('/email-lists/store',[EmailListController::class,'store'])->name('email-list.store');
+    Route::get('/email-lists',[EmailListController::class,'index'])->name('email-lists.index');
+    Route::get('/email-lists/create',[EmailListController::class,'create'])->name('email-lists.create');
+    Route::post('/email-lists/store',[EmailListController::class,'store'])->name('email-lists.store');
 
     Route::get('/email-lists/{emailList}/subscribers',[SubscriberController::class,'index'])->name('subscribers.index');
     Route::get('/email-lists/{emailList}/subscribers/create',[SubscriberController::class,'create'])->name('subscribers.create');
     Route::post('/email-lists/{emailList}/subscribers/store',[SubscriberController::class,'store'])->name('subscribers.store');
     Route::delete('/email-lists/{emailList}/subscribers/{subscriber}',[SubscriberController::class,'destroy'])->name('subscribers.destroy');
 
-    Route::resource("template", TemplateController::class);
+    Route::resource("templates", TemplateController::class);
+
+    Route::resource("campaigns", CampaignController::class);
 
 });
 

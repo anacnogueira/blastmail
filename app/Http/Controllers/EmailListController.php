@@ -35,7 +35,7 @@ class EmailListController extends Controller
      */
     public function create()
     {
-        return view('email-liss.create');
+        return view('email-lists.create');
     }
 
     /**
@@ -52,7 +52,7 @@ class EmailListController extends Controller
             $emailList->subscribers()->createMany($emails);
         });
 
-        return redirect()->route('email-list.index');
+        return redirect()->route('email-lists.index');
     }
 
     private function getEmailsFromCsvFile(UploadedFile $file): array
@@ -75,35 +75,4 @@ class EmailListController extends Controller
         return $items;
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(EmailList $list)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(EmailList $list)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, EmailList $list)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(EmailList $list)
-    {
-        //
-    }
 }

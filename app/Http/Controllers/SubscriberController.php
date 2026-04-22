@@ -24,8 +24,6 @@ class SubscriberController extends Controller
             )
             ->paginate(5)
             ->appends(compact('search'));
-)
-
 
         return view('subscribers.index', compact('emailList','subscribers','search','showTrash'));
     }

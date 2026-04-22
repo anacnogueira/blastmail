@@ -41,7 +41,7 @@ class TemplateController extends Controller
         $data = $request->validated();
         Template::create($data);
 
-        return redirect()->route('template.index')->with('message', __('Template successfully created.'));
+        return redirect()->route('templates.index')->with('message', __('Template successfully created.'));
     }
 
     /**
@@ -69,7 +69,7 @@ class TemplateController extends Controller
         $template->fill($data);
         $template->save();
 
-        return redirect()->route('template.index')->with('message', __('Template successfully updated.'));
+        return redirect()->route('templates.index')->with('message', __('Template successfully updated.'));
     }
 
     /**
@@ -79,6 +79,6 @@ class TemplateController extends Controller
     {
         $template->delete();
 
-        return redirect()->route('template.index')->with('message', __('Template successfully deleted.'));
+        return redirect()->route('templates.index')->with('message', __('Template successfully deleted.'));
     }
 }

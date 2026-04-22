@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\EmailList;
 use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +19,8 @@ class TemplateFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->words(3, true),
+            'body' => fake()->sentence(3, true)
         ];
     }
 }
