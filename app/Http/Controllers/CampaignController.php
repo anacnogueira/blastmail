@@ -25,7 +25,19 @@ class CampaignController extends Controller
 
     public function create(?string $tab = null)
     {
-        return view('campaigns.create', compact('tab'));
+        $view =  match ($tab) {
+            'template' => 'template',
+            'schedule' => 'schedule',
+            default => 'config'
+        };
+        return view('campaigns.create', compact('tab','view'));
+    }
+
+
+    public function store(StoreCampaignRequest $request,?string $tab = null)
+    {
+        $data = $request->validated();
+        session()->put('campaign::create', $data);
     }
 
 
