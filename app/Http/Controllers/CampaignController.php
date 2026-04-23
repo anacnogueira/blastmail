@@ -23,6 +23,13 @@ class CampaignController extends Controller
         return view('campaigns.index', compact('campaigns','search', 'showTrash'));
     }
 
+    public function create(?string $tab = null)
+    {
+        return view('campaigns.create', compact('tab'));
+    }
+
+
+
 
     /**
      * Remove the specified resource from storage.
