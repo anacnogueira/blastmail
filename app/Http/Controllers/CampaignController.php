@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campaign;
+use App\Models\EmailList;
+use App\Models\Template;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\StoreCampaignRequest;
-
+use Illuminate\Support\Traits\Conditionable;
 
 class CampaignController extends Controller
 {
+    use Conditionable;
+
     public function index()
     {
         $search = request()->search;
@@ -27,24 +31,32 @@ class CampaignController extends Controller
 
     public function create(?string $tab = null)
     {
-        $view =  match ($tab) {
-            'template' => 'template',
-            'schedule' => 'schedule',
-            default => 'config'
-        };
-
-        $data = session()->get('campaign::create',[
-            'name' => null,
-            'subject' => null,
-            'email_list_id' => null,
-            'template_id' => null,
-            'body' => null,
-            'track_click' => false,
-            'track_open' => false,
-            'send_at' => null,
-        ]);
-
-        return view('campaigns.create', compact('tab','view','data'));
+        return view('campaigns.create',
+            array_merge(
+                $this->when(blank($tab), fn() => [
+                    'emailLists' => EmailList::query()->select(['id', 'title'])->orderBy('title')->get(),
+                    'templates' => Template::query()->select(['id', 'name'])->orderBy('name')->get(),
+                ], fn() => []),
+                [
+                    'tab' => $tab,
+                    'view' => match ($tab) {
+                        'template' => 'template',
+                        'schedule' => 'schedule',
+                        default => 'config'
+                    },
+                    'data' => session()->get('campaigns::create', [
+                        'name' =>  null,
+                        'subject' =>  null,
+                        'email_list_id' => null,
+                        'template_id' => null,
+                        'body' => null,
+                        'track_click' => null,
+                        'track_open' => null,
+                        'send_at' => null
+                    ])
+                ]
+            )
+        );
     }
 
 
