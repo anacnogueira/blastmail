@@ -11,7 +11,7 @@
             __('Email Body') => url('campaigns/create/template'),
             __('Schedule') => url('campaigns/create/schedule'),
         ]">
-            <x-form :action="route('campaigns.store')" method="post">
+            <x-form :action="route('campaigns.store', $tab)" method="post">
                 @include("campaigns.create.$view")
 
                 <div class="flex items-center space-x-4">

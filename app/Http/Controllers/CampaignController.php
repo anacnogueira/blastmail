@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Campaign;
 use Illuminate\Database\Eloquent\Builder;
+use App\Http\Requests\StoreCampaignRequest;
+
 
 class CampaignController extends Controller
 {
@@ -30,18 +32,34 @@ class CampaignController extends Controller
             'schedule' => 'schedule',
             default => 'config'
         };
-        return view('campaigns.create', compact('tab','view'));
+
+        $data = session()->get('campaign::create',[
+            'name' => null,
+            'subject' => null,
+            'email_list_id' => null,
+            'template_id' => null,
+            'body' => null,
+            'track_click' => false,
+            'track_open' => false,
+            'send_at' => null,
+        ]);
+
+        return view('campaigns.create', compact('tab','view','data'));
     }
 
 
-    public function store(StoreCampaignRequest $request,?string $tab = null)
+    public function store(StoreCampaignRequest $request, ?string $tab = null)
     {
-        $data = $request->validated();
-        session()->put('campaign::create', $data);
+        $data = $request->getData();
+        $toRoute = $request->getToRoute();
+
+        if ($tab == 'schedule') {
+            Campaign::create($data);
+        }
+
+        return response()->redirectTo($toRoute)->with('message', __('Campaign successfully created.'));
+
     }
-
-
-
 
     /**
      * Remove the specified resource from storage.
