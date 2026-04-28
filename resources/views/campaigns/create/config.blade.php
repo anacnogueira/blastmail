@@ -39,14 +39,14 @@
     </div>
 
     <div>
-        <x-input-label for="track_click" :value="__('Track Click')" />
-        <x-input.text id="track_click" class="block mt-1 w-full" name="track_click" :value="old('track_click', $data['track_click'])" autofocus />
+        <x-input.checkbox name="track_click" id="track_click" autofocus value="1" :label="__('Track Click')"
+            isChecked="old('track_click', $data['track_click'])" />
         <x-input-error :messages="$errors->get('track_click')" class="mt-2" />
     </div>
 
     <div>
-        <x-input-label for="track_open" :value="__('Track Open')" />
-        <x-input.text id="track_open" class="block mt-1 w-full" name="track_open" :value="old('track_open', $data['track_open'])" autofocus />
+        <x-input.checkbox name="track_open" id="track_open" autofocus value="1" :label="__('Track Open')"
+            isChecked="old('track_open', $data['track_open'])" />
         <x-input-error :messages="$errors->get('track_open')" class="mt-2" />
     </div>
 </div>
