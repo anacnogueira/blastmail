@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Template;
 
 class StoreCampaignRequest extends FormRequest
 {
@@ -69,6 +70,11 @@ class StoreCampaignRequest extends FormRequest
             if ($key == 'track_click' || $key == 'track_open' || filled($newValue)) {
                 $session[$key] = $newValue;
             }
+        }
+
+        if ($templateId = filled($session['template_id']) && blank($session['body'])) {
+            $template = Template::find($templateId);
+            $session['body'] = $template->body;
         }
 
         session()->put('campaigns::create', $session);
