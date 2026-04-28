@@ -31,7 +31,7 @@ class CampaignController extends Controller
 
     public function create(?string $tab = null)
     {
-        return view('campaigns.create',
+       return view('campaigns.create',
             array_merge(
                 $this->when(blank($tab), fn() => [
                     'emailLists' => EmailList::query()->select(['id', 'title'])->orderBy('title')->get(),
@@ -39,10 +39,10 @@ class CampaignController extends Controller
                 ], fn() => []),
                 [
                     'tab' => $tab,
-                    'view' => match ($tab) {
-                        'template' => 'template',
-                        'schedule' => 'schedule',
-                        default => 'config'
+                    'form' => match ($tab) {
+                        'template' => '_template',
+                        'schedule' => '_schedule',
+                        default => '_config'
                     },
                     'data' => session()->get('campaigns::create', [
                         'name' =>  null,
@@ -52,7 +52,8 @@ class CampaignController extends Controller
                         'body' => null,
                         'track_click' => null,
                         'track_open' => null,
-                        'send_at' => null
+                        'send_at' => null,
+                        'send_when' => 'now',
                     ])
                 ]
             )
