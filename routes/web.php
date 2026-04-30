@@ -38,13 +38,6 @@ Route::middleware('auth')->group(function () {
 
 
     Route::patch("campaigns/{campaign}/restore", [CampaignController::class, 'restore'])->withTrashed()->name('campaigns.restore');
-
-    Route::get("campaigns/{campaign}/emails", function(Campaign $campaign) {
-        foreach($campaign->emailList->subscribers as $subscriber) {
-            \Mail::to($subscriber->email)->send(new EmailCampaign($campaign));
-        }
-
-    });
 });
 
 require __DIR__.'/auth.php';
