@@ -31,30 +31,36 @@ class CampaignController extends Controller
 
     public function create(?string $tab = null)
     {
-       return view('campaigns.create',
+        $data = session()->get('campaigns::create',[
+            'name' =>  null,
+            'subject' =>  null,
+            'email_list_id' => null,
+            'template_id' => null,
+            'body' => null,
+            'track_click' => null,
+            'track_open' => null,
+            'send_at' => null,
+            'send_when' => 'now',
+        ]);
+
+        return view('campaigns.create',
             array_merge(
                 $this->when(blank($tab), fn() => [
                     'emailLists' => EmailList::query()->select(['id', 'title'])->orderBy('title')->get(),
                     'templates' => Template::query()->select(['id', 'name'])->orderBy('name')->get(),
                 ], fn() => []),
+                $this->when($tab == 'schedule', fn() => [
+                    'countEmails' => EmailList::find($data['email_list_id'])->subscribers()->count() ?? 0,
+                    'template' => Template::find($data['template_id'])->first()
+                ],  fn() => []),
                 [
                     'tab' => $tab,
-                    'form' => match ($tab) {
-                        'template' => '_template',
-                        'schedule' => '_schedule',
-                        default => '_config'
+                    'view' => match ($tab) {
+                        'template' => 'template',
+                        'schedule' => 'schedule',
+                        default => 'config'
                     },
-                    'data' => session()->get('campaigns::create', [
-                        'name' =>  null,
-                        'subject' =>  null,
-                        'email_list_id' => null,
-                        'template_id' => null,
-                        'body' => null,
-                        'track_click' => null,
-                        'track_open' => null,
-                        'send_at' => null,
-                        'send_when' => 'now',
-                    ])
+                    'data' => $data
                 ]
             )
         );

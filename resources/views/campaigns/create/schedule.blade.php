@@ -1,11 +1,11 @@
 <div class="flex flex-col gap-4">
     <x-alert success :title="__('Your campaign is ready to be send!')" />
 
-    <div>
-        <div>De: ---@---.com</div>
-        <div>Para: #count de emails do email lists id</div>
-        <div>Assunt: {{ $data['subject'] }}</div>
-        <div>Template: #template</div>
+    <div class="space-y-2">
+        <div>{{ __('From') }}: {{ config('mail.from.address') }}</div>
+        <div>{{ __('To') }}: <x-badge>{{ $countEmails }} emails</x-badge></div>
+        <div>{{ __('Subject') }}: {{ $data['subject'] }}</div>
+        <div>{{ __('Template') }}: <x-badge>{{ $template->name }}</x-badge></div>
     </div>
 
     <hr />
