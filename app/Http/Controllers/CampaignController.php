@@ -102,5 +102,10 @@ class CampaignController extends Controller
         return redirect()->route('campaigns.index')->with('message', __('Campaign successfully restored.'));
     }
 
+    public function show(Campaign $campaign)
+    {
+        abort_unless(in_array($what, ['statistics', 'open', 'clicked']), 404);
 
+        return view('campaigns.show.' . $what);
+    }
 }
