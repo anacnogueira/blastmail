@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
     //region Campaigns
     Route::get('campaigns/', [CampaignController::class, 'index'])->name('campaigns.index');
 
-    Route::get('/campaigns/{campaign}/{what}', [CampaignController::class, 'show'])->name('campaigns.show');
+    Route::get('/campaigns/{campaign}/{what?}', [CampaignController::class, 'show'])->name('campaigns.show');
 
     Route::get('campaigns/create/{tab?}', [CampaignController::class, 'create'])
         ->middleware(CampaignCreateSessionControl::class)
