@@ -7,6 +7,7 @@ use App\Models\EmailList;
 use App\Models\Template;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\StoreCampaignRequest;
+use App\Http\Requests\ShowCampaignRequest;
 use Illuminate\Support\Traits\Conditionable;
 use App\Jobs\SendEmailCampaign;
 class CampaignController extends Controller
@@ -102,15 +103,9 @@ class CampaignController extends Controller
         return redirect()->route('campaigns.index')->with('message', __('Campaign successfully restored.'));
     }
 
-    public function show(Campaign $campaign, ?string $what = null)
+    public function show(ShowCampaignRequest $request, Campaign $campaign, ?string $what = null)
     {
         $search = request()->search;
-
-        if (is_null($what)) {
-            return to_route('campaigns.show', ['campaign' => $campaign, 'what' => 'statistics']);
-        }
-
-        abort_unless(in_array($what, ['statistics', 'open', 'clicked']), 404);
 
         return view('campaigns.show', compact('campaign', 'what', 'search'));
     }
