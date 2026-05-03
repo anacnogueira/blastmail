@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\StoreCampaignRequest;
 use App\Http\Requests\ShowCampaignRequest;
 use Illuminate\Support\Traits\Conditionable;
-use App\Jobs\SendEmailCampaign;
+use App\Jobs\SendEmailsCampaign;
 class CampaignController extends Controller
 {
     use Conditionable;
@@ -76,7 +76,7 @@ class CampaignController extends Controller
         if ($tab == 'schedule') {
             $campaign = Campaign::create($data);
 
-            SendEmailCampaign::dispatchAfterResponse($campaign);
+            SendEmailsCampaign::dispatchAfterResponse($campaign);
         }
 
         return response()->redirectTo($toRoute)->with('message', __('Campaign successfully created.'));
@@ -105,6 +105,10 @@ class CampaignController extends Controller
 
     public function show(ShowCampaignRequest $request, Campaign $campaign, ?string $what = null)
     {
+        if ($redirect = $request->checkWhat()) {
+            return $redirect;
+        }
+
         $search = request()->search;
 
         return view('campaigns.show', compact('campaign', 'what', 'search'));

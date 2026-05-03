@@ -4,7 +4,7 @@
     'info' => null,
     'warning' => null,
     'danger' => null,
-    'no-icon' => false,
+    'noIcon' => false,
 ])
 
 <div @class([
