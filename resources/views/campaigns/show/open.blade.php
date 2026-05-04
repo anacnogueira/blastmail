@@ -5,10 +5,16 @@
 
     <x-table :headers="[__('Name'), __('# Openings'), __('Email')]">
         <x-slot name="body">
-            <tr>
-                <x-table.td class="w-1">Jeremias</x-table.td>
-                <x-table.td class="w-1">1</x-table.td>
-                <x-table.td class="w-1">jeremias@email.com</x-table.td>
+            @foreach ($query as $item)
+                <tr>
+                    <x-table.td class="w-1">{{ $item->subscriber->name }}</x-table.td>
+                    <x-table.td class="w-1">{{ $item->openings }}</x-table.td>
+                    <x-table.td class="w-1">{{ $item->subscriber->email }}</x-table.td>
+                </tr>
+            @endforeach
+
         </x-slot>
     </x-table>
+
+    {{ $query->links() }}
 </div>
