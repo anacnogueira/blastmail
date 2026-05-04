@@ -2,13 +2,27 @@
 
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\EmailListController;
-use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\TrackingController;
 use App\Http\Middleware\CampaignCreateSessionControl;
-use Illuminate\Support\Facades\Route;
 use App\Mail\EmailCampaign;
 use App\Models\Campaign;
+use App\Models\CampaignEmail;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
+
+Route::get('/emails', function(){
+    $campaign = Campaign::find(12);
+    $email = $campaign->emails()->first();
+
+    $emailCampaign = new EmailCampaign($campaign, $email);
+
+    return $emailCampaign->render();
+});
+
+Route::get('/t/{email}/o', [TrackingController::class, 'openings'])->name('tracking.openings');
 
 Route::view('/', 'welcome');
 

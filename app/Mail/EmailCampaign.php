@@ -10,6 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Campaign;
+use App\Models\CampaignEmail;
 
 class EmailCampaign extends Mailable
 {
@@ -18,7 +19,10 @@ class EmailCampaign extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct( public Campaign $campaign)
+    public function __construct(
+        public Campaign $campaign,
+        public CampaignEmail $email
+    )
     {
         //
     }

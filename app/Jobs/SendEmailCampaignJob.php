@@ -4,7 +4,7 @@ namespace App\Jobs;
 
 use App\Mail\EmailCampaign;
 use App\Models\Campaign;
-use App\Models\CampaignMail;
+use App\Models\CampaignEmail;
 use App\Models\Subscriber;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -30,7 +30,7 @@ class SendEmailCampaignJob implements ShouldQueue
      */
     public function handle(): void
     {
-        CampaignMail::query()
+        $email = CampaignEmail::query()
                 ->create([
                     'campaign_id' => $this->campaign->id,
                     'subscriber_id' => $this->subscriber->id,
@@ -38,6 +38,6 @@ class SendEmailCampaignJob implements ShouldQueue
                 ]);
 
         Mail::to($this->subscriber->email)
-            ->later($this->campaign->send_at, new EmailCampaign($this->campaign));
+            ->later($this->campaign->send_at, new EmailCampaign($this->campaign, $email));
     }
 }
