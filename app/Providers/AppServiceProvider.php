@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\CampaignEmail;
+use App\Observers\CampaignEmailObserver;
 
 class AppServiceProvider extends ServiceProvider
 {

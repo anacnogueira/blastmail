@@ -15,24 +15,17 @@ use Illuminate\Support\Facades\Log;
 
 Route::get('/emails', function(){
     $campaign = Campaign::find(14);
+
     $email = $campaign->emails()->first();
 
-    $pattern = '/href="([^"]*)"/';
 
-    preg_match_all($pattern, $campaign->body, $matches);
 
-   foreach($matches[1] as $index => $oldValue) {
-        $newValue = 'href="' . route('tracking.clicks', ['mail' => $mail, 'f' => $oldValue]) . '"';
-
-        $campaign->body = str_replace($matches[0][$index], $newValue, $campaign->body);
-    }
-
-    $email = new EmailCampaign($campaign, $mail);
+    $emailCampaign = new EmailCampaign($campaign, $email);
     return $emailCampaign->render();
 });
 
 Route::get('/t/{email}/o', [TrackingController::class, 'openings'])->name('tracking.openings');
-Route::get('/t/{email}/c', [TrackingController::class, 'click'])->name('tracking.click');
+Route::get('/t/{email}/c', [TrackingController::class, 'click'])->name('tracking.clicks');
 
 Route::view('/', 'welcome');
 
