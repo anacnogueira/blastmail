@@ -7,31 +7,14 @@ use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Middleware\CampaignCreateSessionControl;
-use App\Mail\EmailCampaign;
-use App\Models\Campaign;
-use App\Models\CampaignEmail;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Log;
-
-Route::get('/emails', function(){
-    $campaign = Campaign::find(14);
-
-    $email = $campaign->emails()->first();
-
-
-
-    $emailCampaign = new EmailCampaign($campaign, $email);
-    return $emailCampaign->render();
-});
 
 Route::get('/t/{email}/o', [TrackingController::class, 'openings'])->name('tracking.openings');
 Route::get('/t/{email}/c', [TrackingController::class, 'click'])->name('tracking.clicks');
 
-Route::view('/', 'welcome');
+//Route::redirect('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     //region Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -54,6 +37,8 @@ Route::middleware('auth')->group(function () {
     //region Templates
     Route::resource("templates", TemplateController::class);
     //endregion
+
+    Route::redirect('/dashboard', '/campaigns');
 
     //region Campaigns
     Route::get('campaigns/', [CampaignController::class, 'index'])->name('campaigns.index');
