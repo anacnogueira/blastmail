@@ -75,4 +75,12 @@ class EmailListController extends Controller
         return $items;
     }
 
+    public function destroy(EmailList $emailList)
+    {
+        $emailList->subscribers()->delete();
+        $emailList->delete();
+
+        return redirect()->route('email-lists.index');
+    }
+
 }
