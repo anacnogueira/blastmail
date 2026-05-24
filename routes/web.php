@@ -42,6 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::redirect('/dashboard', '/campaigns');
 
     //region Campaigns
+    Route::get('/', [CampaignController::class, 'index'])->name('campaigns.index');
     Route::get('campaigns/', [CampaignController::class, 'index'])->name('campaigns.index');
 
     Route::get('campaigns/create/{tab?}', [CampaignController::class, 'create'])
