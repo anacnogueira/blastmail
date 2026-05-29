@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
-
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -13,9 +10,13 @@ use Tests\TestCase;
 | need to change it using the "pest()" function to bind different classes or traits.
 |
 */
+use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 
-pest()->extend(TestCase::class)
- // ->use(RefreshDatabase::class)
+use function Pest\Laravel\actingAs;
+
+pest()->extend(Tests\TestCase::class)
+    ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
     ->in('Feature');
 
 /*
@@ -44,7 +45,12 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function login(): User|Authenticatable
 {
-    // ..
+    /** @var User|Authenticatable $user */
+    $user = User::factory()->create();
+
+    actingAs($user);
+
+    return $user;
 }
