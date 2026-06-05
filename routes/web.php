@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/email-lists/{emailList}',[EmailListController::class,'destroy'])->name('email-lists.destroy');
     //endregion
 
+    //subscribers
     Route::get('/email-lists/{emailList}/subscribers',[SubscriberController::class,'index'])->name('subscribers.index');
     Route::get('/email-lists/{emailList}/subscribers/create',[SubscriberController::class,'create'])->name('subscribers.create');
     Route::post('/email-lists/{emailList}/subscribers/store',[SubscriberController::class,'store'])->name('subscribers.store');

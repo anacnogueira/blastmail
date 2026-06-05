@@ -35,11 +35,11 @@ class CampaignController extends Controller
         $data = session()->get('campaigns::create',[
             'name' =>  null,
             'subject' =>  null,
-            'email_list_id' => null,
-            'template_id' => null,
+            'email list id' => null,
+            'template id' => null,
             'body' => null,
-            'track_click' => null,
-            'track_open' => null,
+            'track click' => null,
+            'track open' => null,
             'send_at' => null,
             'send_when' => 'now',
         ]);
@@ -52,7 +52,7 @@ class CampaignController extends Controller
                 ], fn() => []),
                 $this->when($tab == 'schedule', fn() => [
                     'countEmails' => EmailList::find($data['email_list_id'])->subscribers()->count() ?? 0,
-                    'template' => Template::find($data['template_id'])->first()
+                    'template' => Template::find($data['template id'])->first()
                 ],  fn() => []),
                 [
                     'tab' => $tab,
@@ -79,7 +79,7 @@ class CampaignController extends Controller
             SendEmailsCampaign::dispatchAfterResponse($campaign);
         }
 
-        return response()->redirectTo($toRoute)->with('message', __('Campaign successfully created.'));
+        return response()->redirectTo($toRoute)->with('message',   ('Campaign successfully created.'));
 
     }
 
@@ -90,7 +90,7 @@ class CampaignController extends Controller
     {
         $campaign->delete();
 
-        return redirect()->route('campaigns.index')->with('message', __('Campaign successfully deleted.'));
+        return redirect()->route('campaigns.index')->with('message',   ('Campaign successfully deleted.'));
     }
 
      /**
@@ -100,7 +100,7 @@ class CampaignController extends Controller
     {
         $campaign->restore();
 
-        return redirect()->route('campaigns.index')->with('message', __('Campaign successfully restored.'));
+        return redirect()->route('campaigns.index')->with('message',   ('Campaign successfully restored.'));
     }
 
     public function show(ShowCampaignRequest $request, Campaign $campaign, ?string $what = null)

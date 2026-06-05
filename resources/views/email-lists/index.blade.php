@@ -1,7 +1,7 @@
 <x-layouts.app>
     <x-slot name="header">
         <x-h2>
-            {{ __('E-mail List') }}
+            {{ 'E-mail List' }}
         </x-h2>
     </x-slot>
     <x-card class="space-y-4">
@@ -9,13 +9,13 @@
         @unless ($emailLists->isEmpty() && blank($search))
             <div class="flex justify-between">
                 <x-button.link :href="route('email-lists.create')">
-                    {{ __('Create a new email list') }}
+                    {{ 'Create a new email list' }}
                 </x-button.link>
                 <x-form :action="route('email-lists.index')" class="w-2/5">
-                    <x-input.text type="seacrh" name="search" :placeholder="__('Search')" :value="$search" />
+                    <x-input.text type="seacrh" name="search" :placeholder="'Search'" :value="$search" />
                 </x-form>
             </div>
-            <x-table :headers="['#', __('Email List'), __('# Subscribers'), __('Actions')]">
+            <x-table :headers="['#', 'Email List', '# Subscribers', 'Actions']">
                 <x-slot name="body">
                     @foreach ($emailLists as $list)
                         <tr>
@@ -23,11 +23,11 @@
                             <x-table.td>{{ $list->title }}</x-table.td>
                             <x-table.td>{{ $list->subscribers_count }}</x-table.td>
                             <x-table.td class="w-1 flex gap-2 items-center">
-                                <x-button.link :href="route('subscribers.index', $list)">{{ __('Subscribers') }}</x-button.link>
+                                <x-button.link :href="route('subscribers.index', $list)">{{ 'Subscribers' }}</x-button.link>
 
                                 <x-form delete action="{{ route('email-lists.destroy', ['emailList' => $list]) }}" flat
-                                    onsubmit="return confirm('{{ __('Are you sure?') }}')">
-                                    <x-button.danger type="submit">{{ __('Delete') }}</x-button.danger>
+                                    onsubmit="return confirm('{{ 'Are you sure?' }}')">
+                                    <x-button.danger type="submit">{{ 'Delete' }}</x-button.danger>
                                 </x-form>
                             </x-table.td>
                         </tr>
@@ -38,7 +38,7 @@
         @else
             <div class="flex justify-center">
                 <x-button.link :href="route('email-lists.create')">
-                    {{ __('Create your first email list') }}
+                    {{ 'Create your first email list' }}
                 </x-button.link>
             </div>
         @endunless

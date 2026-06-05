@@ -24,9 +24,19 @@ class StoreSubscriberRequest extends FormRequest
      */
     public function rules(): array
     {
+        $emailList = $this->route('emailList');
+
+        $listId = is_object($emailList) ? $emailList->id : $emailList;
+
         return [
             'name' => ['required','string','max:255'],
-            'email' => ['required', 'string','email','max:255', Rule::unique(Subscriber::class)->where('email_list_id', '=', request()->emailList->id)]
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique(Subscriber::class)->where(fn ($query) => $query->where('email_list_id', $listId))
+            ]
         ];
     }
 }
