@@ -70,7 +70,7 @@ class TemplateController extends Controller
         $template->fill($data);
         $template->save();
 
-        return redirect()->route('templates.index')->with('message', __('Template successfully updated.'));
+        return redirect()->route('templates.index')->with('message', __('Template successfully updated!'));
     }
 
     /**
