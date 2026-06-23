@@ -77,9 +77,9 @@ class StoreCampaignRequest extends FormRequest
             }
         }
 
-        if ($templateId = filled($session['template_id']) && blank($session['body'])) {
+        if ((($templateId = $session['template_id']) && blank($session['body']))) {
             $template = Template::find($templateId);
-            $session['body'] = $template->body;
+            $session['body'] = $template?->body;
         }
 
         session()->put('campaigns::create', $session);
