@@ -21,7 +21,6 @@ class CampaignController extends Controller
         $campaigns = Campaign::when($showTrash, fn(Builder $query) => $query->withTrashed())
             ->when($search, fn(Builder $query) =>
                 $query->where("name", "like", "%$search%")
-                ->where("subject", "like", "%$search%")
                 ->orWhere("id", "=", "$search")
             )
             ->paginate(5)
@@ -32,14 +31,14 @@ class CampaignController extends Controller
 
     public function create(?string $tab = null)
     {
-        $data = session()->get('campaigns::create',[
-            'name' =>  null,
-            'subject' =>  null,
-            'email list id' => null,
-            'template id' => null,
+        $data = session()->get('campaigns::create', [
+            'name' => null,
+            'subject' => null,
+            'email_list_id' => null,
+            'template_id' => null,
             'body' => null,
-            'track click' => null,
-            'track open' => null,
+            'track_click' => null,
+            'track_open' => null,
             'send_at' => null,
             'send_when' => 'now',
         ]);
@@ -52,7 +51,7 @@ class CampaignController extends Controller
                 ], fn() => []),
                 $this->when($tab == 'schedule', fn() => [
                     'countEmails' => EmailList::find($data['email_list_id'])->subscribers()->count() ?? 0,
-                    'template' => Template::find($data['template id'])->first()
+                    'template' => Template::find($data['template_id'])->first()
                 ],  fn() => []),
                 [
                     'tab' => $tab,

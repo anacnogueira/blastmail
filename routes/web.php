@@ -46,9 +46,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [CampaignController::class, 'index'])->name('campaigns.index');
     Route::get('campaigns/', [CampaignController::class, 'index'])->name('campaigns.index');
 
-    Route::get('campaigns/create/{tab?}', [CampaignController::class, 'create'])
-        ->middleware(CampaignCreateSessionControl::class)
-        ->name('campaigns.create');
+    Route::get('/campaigns/create/{tab?}', [CampaignController::class, 'create'])->middleware(CampaignCreateSessionControl::class)->name('campaigns.create');
+    Route::post('/campaigns/create/{tab?}', [CampaignController::class, 'store']);
 
     Route::get('/campaigns/{campaign}/{what?}', [CampaignController::class, 'show'])->name('campaigns.show')->withTrashed();
 
